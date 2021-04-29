@@ -40,6 +40,7 @@ void setup()
     initDisplay();
 }
 
+#pragma region inits
 void initButtons()
 {
     for (int8_t i = 0; i < numButtons; i++)
@@ -52,7 +53,7 @@ void initPumps()
 {
     for (int8_t i = 0; i < numPumps; i++)
     {
-        // TODO: Implement
+        pumps[i] = Pump(pumpPins[i]);
     }
 }
 
@@ -63,8 +64,27 @@ void initDisplay()
     width = u8g2.getUTF8Width(text);
     u8g2.setFontMode(0);
 }
+#pragma endregion
 
-void loop()
+#pragma region updates
+
+void updateButtons()
+{
+    for (int8_t i = 0; i < numButtons; i++)
+    {
+        buttons[i].update();
+    }
+}
+
+void updatePumps()
+{
+    for (int8_t i = 0; i < numPumps; i++)
+    {
+        pumps[i].update();
+    }
+}
+
+void updateDisplay()
 {
     // TODO: Test Display
     for (int i = 0 ; i < 128 + width*3 ; i++ )
@@ -75,4 +95,13 @@ void loop()
         u8g2.nextPage();
     }
     u8g2.clearBuffer();
+}
+
+#pragma endregion
+
+void loop()
+{
+    updateButtons();
+    updatePumps();
+    updateDisplay();
 }
