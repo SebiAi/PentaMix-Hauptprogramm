@@ -1,11 +1,9 @@
 #include "Pump.h"
 
-Pump :: Pump()
-{
-
+Pump :: Pump(byte pin) {
+    this->pin = pin;
 }
 
-void update()
-{
-    
+void Pump :: update() {
+
 }

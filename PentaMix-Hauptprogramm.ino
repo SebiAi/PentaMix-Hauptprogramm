@@ -52,7 +52,7 @@ void initPumps()
 {
     for (int8_t i = 0; i < numPumps; i++)
     {
-        #error NOT IMPLEMENTED
+        // TODO: Implement
     }
 }
 

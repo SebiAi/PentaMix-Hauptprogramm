@@ -13,12 +13,18 @@ Changelog:
 #define _PUMP_H
 
 #include "Arduino.h"
+#include "SimpleTimer.h"
 
 class Pump {
+    byte pin;
+    SimpleTimer timer;
   
 public:
     Pump() {};
-    Pump();
+    Pump(byte pin);
+
     void update();
+
+};
 
 #endif
