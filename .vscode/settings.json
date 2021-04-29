@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "ios": "cpp",
+        "xutility": "cpp",
+        "ostream": "cpp"
+    },
+    "python.pythonPath": "C:\\Users\\Sebastian\\AppData\\Local\\Programs\\Python\\Python36-32\\python.exe"
+    "arduino.logLevel": "info"
+}

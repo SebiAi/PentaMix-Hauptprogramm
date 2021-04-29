@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:nano",
+    "port": "COM19",
+    "sketch": "PentaMix-Hauptprogramm.ino",
+    "configuration": "cpu=atmega328"
+}
