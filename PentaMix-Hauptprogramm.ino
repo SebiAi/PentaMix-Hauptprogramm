@@ -13,6 +13,7 @@ Changelog:
 #include <U8g2lib.h>
 #include "Button.h"
 #include "SimpleTimer.h"
+#include "Pump.h"
 
 // Config
 const uint8_t buttonPins[] = {2, 3, 4, 5, 6, 7, 8};
@@ -23,19 +24,48 @@ const uint8_t pumpPins[] = {13, 12, 11, 10, 9};
 const uint8_t numButtons = sizeof(buttonPins) / sizeof(buttonPins[0]);
 const uint8_t numPumps = sizeof(pumpPins) / sizeof(pumpPins[0]);
 
+// Arrays
+Button buttons[numButtons];
+Pump pumps[numPumps]; // TODO: Pump class
+
 // Display
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 const char *text = "AZ-Delivery";
 u8g2_uint_t width;
 
-void setup(){
+void setup()
+{
+    initButtons();
+    initPumps();
+    initDisplay();
+}
+
+void initButtons()
+{
+    for (int8_t i = 0; i < numButtons; i++)
+    {
+        buttons[i] = Button(buttonPins[i], false, 10, true); // active LOW, 10 ms debounce time, activate pullup
+    }
+}
+
+void initPumps()
+{
+    for (int8_t i = 0; i < numPumps; i++)
+    {
+        #error NOT IMPLEMENTED
+    }
+}
+
+void initDisplay()
+{
     u8g2.begin();
     u8g2.setFont(u8g2_font_logisoso32_tf);
     width = u8g2.getUTF8Width(text);
     u8g2.setFontMode(0);
-} 
+}
 
-void loop() {
+void loop()
+{
     // TODO: Test Display
     for (int i = 0 ; i < 128 + width*3 ; i++ )
     {
