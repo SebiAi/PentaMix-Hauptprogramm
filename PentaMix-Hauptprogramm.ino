@@ -25,11 +25,24 @@ const uint8_t numPumps = sizeof(pumpPins) / sizeof(pumpPins[0]);
 
 // Display
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+const char *text = "AZ-Delivery";
+u8g2_uint_t width;
 
 void setup(){
-
+    u8g2.begin();
+    u8g2.setFont(u8g2_font_logisoso32_tf);
+    width = u8g2.getUTF8Width(text);
+    u8g2.setFontMode(0);
 } 
 
 void loop() {
-    
+    // TODO: Test Display
+    for (int i = 0 ; i < 128 + width*3 ; i++ )
+    {
+        u8g2.firstPage();
+        u8g2.setFont(u8g2_font_logisoso32_tf);
+        u8g2.drawUTF8(128 - i, 48, text);
+        u8g2.nextPage();
+    }
+    u8g2.clearBuffer();
 }
