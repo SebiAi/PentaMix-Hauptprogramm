@@ -44,7 +44,9 @@
             "includePath": [
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\eightanaloginputs",
-                "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\Servo\\src",
+                "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\U8g2\\src",
+                "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\SPI\\src",
+                "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\Wire",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include-fixed",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\avr\\include"
