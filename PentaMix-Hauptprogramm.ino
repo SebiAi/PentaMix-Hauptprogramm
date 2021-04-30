@@ -14,6 +14,7 @@ Changelog:
 #include "Button.h"
 #include "SimpleTimer.h"
 #include "Pump.h"
+#include "Drink.h"
 
 // Config
 #define NUMDRINKS 5
@@ -28,6 +29,7 @@ const uint8_t numPumps = sizeof(pumpPins) / sizeof(pumpPins[0]);
 // Arrays
 Button buttons[numButtons];
 Pump pumps[numPumps];
+Drink drinks[numPumps];
 
 // Display
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
