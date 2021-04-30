@@ -47,6 +47,7 @@ void initAll()
     initButtons();
     initPumps();
     initDisplay();
+    initDrinks();
 }
 
 void initButtons()
@@ -71,6 +72,14 @@ void initDisplay()
     u8g2.setFont(u8g2_font_logisoso32_tf);
     width = u8g2.getUTF8Width(text);
     u8g2.setFontMode(0);
+}
+
+void initDrinks()
+{
+    for (int8_t i = 0; i < numPumps; i++)
+    {
+        drinks[i] = Drink((String)"Drink " + (i + 1), (String)"D" + (i + 1), i);
+    }
 }
 #pragma endregion
 
