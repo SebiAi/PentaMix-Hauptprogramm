@@ -113,5 +113,24 @@ void loop()
 {
     updateAll();
 
+    for (int i = 0; i < numButtons; i++)
+    {
+        if (buttons[i].hasBtnClicked())
+        {
+            if (i < 4)
+            {
+                // Getränk Button
+            }
 
+            if (i == 5)
+            {
+                // Undo Button
+            }
+
+            if (i == 6)
+            {
+                // Ok Button
+            }
+        }
+    }
 }
