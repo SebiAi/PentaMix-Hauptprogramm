@@ -34,7 +34,7 @@ const uint8_t numPumps = sizeof(pumpPins) / sizeof(pumpPins[0]);
 Button buttons[numButtons];
 Pump pumps[numPumps];
 Drink drinks[numPumps];
-int8_t selectedDrinks[NUMPARTS];
+int8_t selectedDrinks[NUMPARTS][2];
 
 // Display
 //U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
@@ -45,7 +45,7 @@ DisplaySH1106_128x64_I2C display(-1);
 void setup()
 {
     initAll();
-    memset(selectedDrinks, -1, sizeof(selectedDrinks));
+    memset(selectedDrinks, -1, sizeof(selectedDrinks)); // TODO: [NOW] Set second part in two dimensional array to 0
 }
 
 #pragma region inits
