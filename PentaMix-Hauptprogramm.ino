@@ -75,10 +75,14 @@ void initPumps()
 
 void initDisplay()
 {
-    u8g2.begin();
-    u8g2.setFont(u8g2_font_logisoso32_tf);
-    width = u8g2.getUTF8Width(text);
-    u8g2.setFontMode(0);
+    // u8g2.begin();
+    // u8g2.setFont(u8g2_font_logisoso32_tf);
+    // width = u8g2.getUTF8Width(text);
+    // u8g2.setFontMode(0);
+    display.begin();
+    display.setFixedFont(ssd1306xled_font6x8);
+
+    display.fill( 0x00 );
 }
 
 void initDrinks()
@@ -136,19 +140,26 @@ void loop()
     {
         if (buttons[i].hasBtnClicked())
         {
-            if (i < 4)
+            if (i < 4) // Getränk Button
             {
-                // Getränk Button
+                
             }
 
-            if (i == 5)
+            if (i == 5) // Undo Button
             {
-                // Undo Button
+                
             }
 
-            if (i == 6)
+            if (i == 6) // Ok Button
             {
-                // Ok Button
+                if (selectedDrinks[0][0] == -1)
+                {
+                    // Display error Message
+                }
+                else
+                {
+                    // Count parts
+                }
             }
         }
     }
