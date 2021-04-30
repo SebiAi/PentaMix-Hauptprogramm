@@ -35,12 +35,17 @@ u8g2_uint_t width;
 
 void setup()
 {
+    initAll();
+}
+
+#pragma region inits
+void initAll()
+{
     initButtons();
     initPumps();
     initDisplay();
 }
 
-#pragma region inits
 void initButtons()
 {
     for (int8_t i = 0; i < numButtons; i++)
@@ -102,7 +107,6 @@ void updateDisplay()
     }
     u8g2.clearBuffer();
 }
-
 #pragma endregion
 
 void loop()
