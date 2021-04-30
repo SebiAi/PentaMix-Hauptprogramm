@@ -16,8 +16,8 @@ Changelog:
 #include "Pump.h"
 
 // Config
-const uint8_t buttonPins[] = {2, 3, 4, 5, 6, 7, 8};
-const uint8_t pumpPins[] = {13, 12, 11, 10, 9};
+const uint8_t buttonPins[] = {2, 3, 4, 5, 6, 7, 8}; // 0 bis 4 - Getränk 1 bis 5, 5 - Undo, 6 Ok
+const uint8_t pumpPins[] = {13, 12, 11, 10, 9};     // 0 bis 4 - Getränk 1 bis 5
 // End Config
 
 // Längen holen
@@ -112,4 +112,6 @@ void updateDisplay()
 void loop()
 {
     updateAll();
+
+
 }
