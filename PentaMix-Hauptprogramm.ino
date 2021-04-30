@@ -67,6 +67,12 @@ void initDisplay()
 #pragma endregion
 
 #pragma region updates
+void updateAll()
+{
+    updateButtons();
+    updatePumps();
+    updateDisplay();
+}
 
 void updateButtons()
 {
@@ -101,7 +107,5 @@ void updateDisplay()
 
 void loop()
 {
-    updateButtons();
-    updatePumps();
-    updateDisplay();
+    updateAll();
 }
