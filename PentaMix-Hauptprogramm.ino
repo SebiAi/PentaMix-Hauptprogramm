@@ -17,6 +17,7 @@ Changelog:
 #include "SimpleTimer.h"
 #include "Pump.h"
 #include "Drink.h"
+#include "defines.h"
 
 // Config
 #define NUMDRINKS 5

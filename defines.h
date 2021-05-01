@@ -1,0 +1,2 @@
+#define DRINK 0
+#define DRINKNUMPARTS 1
