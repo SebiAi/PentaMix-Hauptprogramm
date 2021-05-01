@@ -45,6 +45,7 @@ DisplaySH1106_128x64_I2C display(-1);
 
 void setup()
 {
+    Serial.begin(9600);
     initAll();
     memset(selectedDrinks, -1, sizeof(selectedDrinks)); // TODO: [NOW] Set second part in two dimensional array to 0
 }
