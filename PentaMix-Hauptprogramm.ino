@@ -57,6 +57,7 @@ void initAll()
     initPumps();
     initDisplay();
     initDrinks();
+    initSelectedDrinks();
 }
 
 void initButtons()
@@ -92,6 +93,16 @@ void initDrinks()
     for (int8_t i = 0; i < numPumps; i++)
     {
         drinks[i] = Drink((String)"Drink " + (i + 1), (String)"D" + (i + 1), i);
+    }
+}
+
+void initSelectedDrinks()
+{
+    uint8_t u = 0;
+    for (uint8_t i = 0; i < NUMPARTS * 2; i++)
+    {
+        selectedDrinks[i - i % 2 - u][i % 2] = -1 + i % 2;
+        u += i % 2;
     }
 }
 #pragma endregion
