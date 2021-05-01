@@ -14,12 +14,12 @@ Changelog:
 
 #include "Arduino.h"
 
-class Drink {
+class Drink {  
+public:
     String name;
     String acronym;
     uint8_t pumpid;
-  
-public:
+
     Drink() {};
     Drink(String name, String acronym, uint8_t pumpid);
 };
