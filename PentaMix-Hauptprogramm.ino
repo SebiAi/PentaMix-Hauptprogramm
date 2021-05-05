@@ -161,50 +161,66 @@ void updateDisplay()
 }
 #pragma endregion
 
+#pragma region part functions
+void addPart(uint8_t i)
+{
+    uint8_t partnr = 0;
+    
+    for (; partnr < NUMPARTS; partnr++)
+    {
+        // Find empty part slot
+        if (selectedDrinks[partnr] == -1)
+        {
+            // add part
+            selectedDrinks[partnr] = i;
+            Serial.println((String)"Set part " + partnr + " to " + i);
+            break;
+        }
+    }
+    if (partnr == NUMPARTS)
+    {
+        // Display error Message (already 10 parts)
+        Serial.println("[ERROR] ALL PARTS FULL");
+    }
+    printSelectedDrinks();
+}
+
+void undoPart(uint8_t i)
+{
+    int8_t partnr = NUMPARTS - 1;
+    
+    for (; partnr >= 0; partnr--)
+    {
+        // Find last added part
+        if (selectedDrinks[partnr] != -1)
+        {
+            // Remove part
+            selectedDrinks[partnr] = -1;
+            Serial.println((String)"Set part " + partnr + " to NOT SET");
+            break;
+        }
+    }
+    printSelectedDrinks();
+}
+#pragma endregion
+
 void loop()
 {
     updateAll();
 
-    for (int i = 0; i < numButtons; i++)
+    for (uint8_t i = 0; i < numButtons; i++)
     {
         if (buttons[i].hasBtnClicked())
         {
             Serial.println((String)"Button " + i);
             if (i < 4) // Getränk Button
             {
-                uint8_t partnr = 0;
-                // Find empty part slot
-                for (; partnr < NUMPARTS; partnr++)
-                {
-                    if (selectedDrinks[partnr] == -1)
-                    {
-                        selectedDrinks[partnr] = i;
-                        Serial.println((String)"Set part " + partnr + " to " + i);
-                        break;
-                    }
-                }
-                if (partnr == NUMPARTS)
-                {
-                    // Display error Message (already 10 parts)
-                    Serial.println("[ERROR] ALL PARTS FULL");
-                }
-                printSelectedDrinks();
+                addPart(i);
             }
 
             if (i == 5) // Undo Button
             {
-                int8_t partnr = NUMPARTS - 1;
-
-                for (; partnr >= 0; partnr--)
-                {
-                    if (selectedDrinks[partnr] != -1)
-                    {
-                        selectedDrinks[partnr] = -1;
-                        Serial.println((String)"Set part " + partnr + " to NOT SET");
-                        break;
-                    }
-                }
-                printSelectedDrinks();
+                undoPart(i);
             }
 
             if (i == 6) // Ok Button
