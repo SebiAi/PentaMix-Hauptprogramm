@@ -11,9 +11,15 @@ void SimpleTimer :: set(unsigned long duration) {
   isInitialised = true;
 }
 
+uint64_t SimpleTimer :: get()
+{
+    return runTime - startTime;
+}
+
 bool SimpleTimer :: elapsed() {
   if (running) {
     if (millis() - startTime >= duration) {
+      runTime = millis();
       running = false;
     }
   }
