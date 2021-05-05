@@ -51,10 +51,10 @@ void printSelectedDrinks()
     }
 }
 
-void printArray(uint8_t array[], uint8_t size)
+void printArray(uint16_t *array, uint8_t size)
 {
-    for (uint8_t i = 0; i < size; i++) {
-        Serial.println((String)i + ": " + array[i]);
+    for (uint8_t i = 0; i < size; i++, array++) {
+        Serial.println((String)i + ": " + *array);
     }
 }
 #pragma endregion
