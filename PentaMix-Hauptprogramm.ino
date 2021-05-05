@@ -277,24 +277,26 @@ void loop()
                     {
                         pumps[partnr].dispense_ml(partsSum[partnr]);
                     }
+
                     uint8_t numPumpsWorking = numPumps;
-                    partnr = 0;
                     // TODO: Display that pumps are working
-                    for (; numPumpsWorking > 0; partnr++)
+                    while (numPumpsWorking > 0)
                     {
                         numPumpsWorking = 0;
-                        if (partnr >= GETARRAYLENGTH(partsSum)) partnr = 0;
-                        pumps[partnr].update();
-                        if (pumps[partnr].isWorking) numPumpsWorking++;
+                        partnr = 0;                        
+                        for (; partnr < GETARRAYLENGTH(partsSum); partnr++)
+                        {
+                            pumps[partnr].update();
+                            if (pumps[partnr].isWorking) numPumpsWorking++;                            
+                        }
                     }
                     Serial.println("</operate Pumps>");
+                    for (uint8_t debug = 0; debug < GETARRAYLENGTH(partsSum); debug++)
+                    {
+                        Serial.println((unsigned long)pumps[debug].getElapsedTime());
+                    }
 
-                    // for (uint8_t debug = 0; debug < GETARRAYLENGTH(partsSum); debug++)
-                    // {
-                    //     char str[256];
-                    //     sprintf(str, "%lld", pumps[debug].getElapsedTime());
-                    //     Serial.println((String)debug + ": " + str);
-                    // }
+                    // TODO: clear selectedDrinks and refresh display
                 }
             }
         }
