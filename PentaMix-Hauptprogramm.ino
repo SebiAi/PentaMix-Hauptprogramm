@@ -181,6 +181,7 @@ void addPart(uint8_t i)
     {
         // Display error Message (already 10 parts)
         Serial.println("[ERROR] ALL PARTS FULL");
+        // TODO: Also on Display
     }
     printSelectedDrinks();
 }
@@ -229,6 +230,7 @@ void loop()
                 {
                     // Display error Message (no parts)
                     Serial.println("[ERROR] NO PARTS");
+                    // TODO: Also on Display
                 }
                 else
                 {
