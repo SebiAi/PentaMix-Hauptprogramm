@@ -246,7 +246,55 @@ void loop()
                 }
                 else
                 {
-                    // Count parts
+                    // count parts
+                    uint16_t partsSum[numPumps];
+                    memset(partsSum, 0, sizeof(partsSum));
+
+                    uint8_t partnr = 0;
+                    uint8_t sumParts = 0;
+                    for (; partnr < NUMPARTS; partnr++)
+                    {
+                        if (selectedDrinks[partnr] != -1)
+                        {
+                            partsSum[selectedDrinks[partnr]]++;
+                            sumParts++;
+                        }
+                    }
+                    Serial.println("<Counted Parts>");
+                    printArray(partsSum, GETARRAYLENGTH(partsSum));
+                    Serial.println("</Counted Parts>");
+
+                    // calulate ml
+                    Serial.println("<calulate ml>");
+                    calculateMls(partsSum, GETARRAYLENGTH(partsSum), sumParts, CUPSIZEML);
+                    printArray(partsSum, GETARRAYLENGTH(partsSum));
+                    Serial.println("</calulate ml>");
+
+                    // operate Pumps
+                    Serial.println("<operate Pumps>");
+                    partnr = 0;
+                    for (; partnr < GETARRAYLENGTH(partsSum); partnr++)
+                    {
+                        pumps[partnr].dispense_ml(partsSum[partnr]);
+                    }
+                    uint8_t numPumpsWorking = numPumps;
+                    partnr = 0;
+                    // TODO: Display that pumps are working
+                    for (; numPumpsWorking > 0; partnr++)
+                    {
+                        numPumpsWorking = 0;
+                        if (partnr >= GETARRAYLENGTH(partsSum)) partnr = 0;
+                        pumps[partnr].update();
+                        if (pumps[partnr].isWorking) numPumpsWorking++;
+                    }
+                    Serial.println("</operate Pumps>");
+
+                    // for (uint8_t debug = 0; debug < GETARRAYLENGTH(partsSum); debug++)
+                    // {
+                    //     char str[256];
+                    //     sprintf(str, "%lld", pumps[debug].getElapsedTime());
+                    //     Serial.println((String)debug + ": " + str);
+                    // }
                 }
             }
         }
