@@ -28,8 +28,8 @@ const uint8_t pumpPins[NUMDRINKS] = {13, 12, 11, 10, 9};    // 0 bis 4 - Geträn
 // End Config
 
 // Längen holen
-const uint8_t numButtons = sizeof(buttonPins) / sizeof(buttonPins[0]);
-const uint8_t numPumps = sizeof(pumpPins) / sizeof(pumpPins[0]);
+const uint8_t numButtons = GETARRAYLENGTH(buttonPins);
+const uint8_t numPumps = GETARRAYLENGTH(pumpPins);
 
 // Arrays
 Button buttons[numButtons];
@@ -43,12 +43,21 @@ DisplaySH1106_128x64_I2C display(-1);
 //const char *text = "AZ-Delivery";
 //u8g2_uint_t width;
 
+#pragma region debug
 void printSelectedDrinks()
 {
     for (uint8_t i = 0; i < NUMPARTS; i++) {
         (selectedDrinks[i] == -1) ? Serial.println((String)i + ": NOT SET") : Serial.println((String)i + ": " + drinks[selectedDrinks[i]].name);
     }
 }
+
+void printArray(uint8_t array[], uint8_t size)
+{
+    for (uint8_t i = 0; i < size; i++) {
+        Serial.println((String)i + ": " + array[i]);
+    }
+}
+#pragma endregion
 
 void setup()
 {
