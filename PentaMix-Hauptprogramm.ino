@@ -193,7 +193,18 @@ void loop()
 
             if (i == 5) // Undo Button
             {
-                
+                int8_t partnr = NUMPARTS - 1;
+
+                for (; partnr >= 0; partnr--)
+                {
+                    if (selectedDrinks[partnr] != -1)
+                    {
+                        selectedDrinks[partnr] = -1;
+                        Serial.println((String)"Set part " + partnr + " to NOT SET");
+                        break;
+                    }
+                }
+                printSelectedDrinks();
             }
 
             if (i == 6) // Ok Button
