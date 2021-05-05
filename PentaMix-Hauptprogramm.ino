@@ -169,6 +169,7 @@ void loop()
     {
         if (buttons[i].hasBtnClicked())
         {
+            Serial.println((String)"Button " + i);
             if (i < 4) // Getränk Button
             {
                 
@@ -183,7 +184,8 @@ void loop()
             {
                 if (selectedDrinks[0] == -1)
                 {
-                    // Display error Message
+                    // Display error Message (no parts)
+                    Serial.println("[ERROR] NO PARTS");
                 }
                 else
                 {
