@@ -1,11 +1,13 @@
 /*
 Name: Sebastian Aigner
 Datum: 2021-04-30 (yyyy-mm-dd)
-Version: 1.0
+Version: 1.1
 
 Changelog:
 1.0:
     Base version
+1.1:
+    added getElapsedTime() function
 */
 
 
@@ -26,10 +28,13 @@ class Pump {
     SimpleTimer timer;
   
 public:
+    bool isWorking = false;
+
     Pump() {};
     Pump(byte pin);
 
     void dispense_ml(uint16_t milliliters); // Gibt angegebene menge an Flüssigkeit aus.
+    uint64_t getElapsedTime();              // Gibt die vom Timer tatsächliche verstrichene Zeit zurück
 
     void update();
 };
