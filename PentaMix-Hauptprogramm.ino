@@ -219,7 +219,7 @@ void calculateMls(uint16_t *partsSum, uint8_t size, uint8_t sumParts, uint16_t c
 
 void loop()
 {
-    updateAll();
+    updateAll(); // TODO: Mabe optimise => one for loop with all updates
 
     for (uint8_t i = 0; i < numButtons; i++)
     {
