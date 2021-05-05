@@ -206,6 +206,17 @@ void undoPart(uint8_t i)
 }
 #pragma endregion
 
+#pragma region help functions
+void calculateMls(uint16_t *partsSum, uint8_t size, uint8_t sumParts, uint16_t cupSizeMl)
+{
+    uint8_t partnr = 0;
+    for (; partnr < size; partnr++, partsSum++)
+    {
+        *partsSum = cupSizeMl / sumParts * (*partsSum);
+    }    
+}
+#pragma endregion
+
 void loop()
 {
     updateAll();
