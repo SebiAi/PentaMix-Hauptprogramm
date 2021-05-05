@@ -63,14 +63,6 @@ void setup()
 {
     Serial.begin(9600);
     initAll();
-
-    // int8_t *p = &selectedDrinks[0][0];
-    // for (uint8_t i = 0; i < NUMPARTS; i++, p++)
-    // {
-    //     Serial.println(drinks[*p].name);
-    //     p++;
-    //     Serial.println(*p);
-    // }
     printSelectedDrinks();
 }
 
