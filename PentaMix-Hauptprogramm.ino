@@ -43,6 +43,13 @@ DisplaySH1106_128x64_I2C display(-1);
 //const char *text = "AZ-Delivery";
 //u8g2_uint_t width;
 
+void printSelectedDrinks()
+{
+    for (uint8_t i = 0; i < NUMPARTS; i++) {
+        (selectedDrinks[i] == -1) ? Serial.println((String)i + ": NOT SET") : Serial.println((String)i + ": " + drinks[selectedDrinks[i]].name);
+    }
+}
+
 void setup()
 {
     Serial.begin(9600);
@@ -55,6 +62,7 @@ void setup()
     //     p++;
     //     Serial.println(*p);
     // }
+    printSelectedDrinks();
 }
 
 #pragma region inits
