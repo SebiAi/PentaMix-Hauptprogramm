@@ -47,7 +47,14 @@ void setup()
 {
     Serial.begin(9600);
     initAll();
-    memset(selectedDrinks, -1, sizeof(selectedDrinks)); // TODO: [NOW] Set second part in two dimensional array to 0
+
+    // int8_t *p = &selectedDrinks[0][0];
+    // for (uint8_t i = 0; i < NUMPARTS; i++, p++)
+    // {
+    //     Serial.println(drinks[*p].name);
+    //     p++;
+    //     Serial.println(*p);
+    // }
 }
 
 #pragma region inits
