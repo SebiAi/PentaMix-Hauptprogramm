@@ -35,7 +35,7 @@ const uint8_t numPumps = sizeof(pumpPins) / sizeof(pumpPins[0]);
 Button buttons[numButtons];
 Pump pumps[numPumps];
 Drink drinks[numPumps];
-int8_t selectedDrinks[NUMPARTS][2]; // { { drink array nummer, anzahl }, ... }
+int8_t selectedDrinks[NUMPARTS];
 
 // Display
 //U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
@@ -105,12 +105,13 @@ void initDrinks()
 
 void initSelectedDrinks()
 {
-    uint8_t u = 0;
-    for (uint8_t i = 0; i < NUMPARTS * 2; i++)
-    {
-        selectedDrinks[i - i % 2 - u][i % 2] = -1 + i % 2;
-        u += i % 2;
-    }
+    // uint8_t u = 0;
+    // for (uint8_t i = 0; i < NUMPARTS * 2; i++)
+    // {
+    //     selectedDrinks[i - i % 2 - u][i % 2] = -1 + i % 2;
+    //     u += i % 2;
+    // }
+    memset(selectedDrinks, -1, sizeof(selectedDrinks));
 }
 #pragma endregion
 
@@ -172,7 +173,7 @@ void loop()
 
             if (i == 6) // Ok Button
             {
-                if (selectedDrinks[0][0] == -1)
+                if (selectedDrinks[0] == -1)
                 {
                     // Display error Message
                 }
