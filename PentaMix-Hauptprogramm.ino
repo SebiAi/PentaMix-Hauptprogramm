@@ -172,7 +172,23 @@ void loop()
             Serial.println((String)"Button " + i);
             if (i < 4) // Getränk Button
             {
-                
+                uint8_t partnr = 0;
+                // Find empty part slot
+                for (; partnr < NUMPARTS; partnr++)
+                {
+                    if (selectedDrinks[partnr] == -1)
+                    {
+                        selectedDrinks[partnr] = i;
+                        Serial.println((String)"Set part " + partnr + " to " + i);
+                        break;
+                    }
+                }
+                if (partnr == NUMPARTS)
+                {
+                    // Display error Message (already 10 parts)
+                    Serial.println("[ERROR] ALL PARTS FULL");
+                }
+                printSelectedDrinks();
             }
 
             if (i == 5) // Undo Button
