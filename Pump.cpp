@@ -9,7 +9,6 @@ Pump :: Pump(byte pin)
 void Pump :: dispense_ml(uint16_t milliliters)
 {
     if (milliliters < 10) return;
-    // Serial.println(milliliters/this->mlPerSecond*1000);
     timer.set(milliliters/this->mlPerSecond*1000);
     digitalWrite(pin, HIGH);
     isWorking = true;
