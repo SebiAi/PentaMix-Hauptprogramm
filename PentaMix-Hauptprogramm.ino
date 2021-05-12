@@ -100,8 +100,11 @@ void initDisplay()
     // u8g2.setFontMode(0);
     display.begin();
     display.setFixedFont(ssd1306xled_font6x8);
-
     display.fill( 0x00 );
+
+    display.swapDimensions();
+
+    display.write("Hello World!");
 }
 
 void initDrinks()
