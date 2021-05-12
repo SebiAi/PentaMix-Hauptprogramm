@@ -1,6 +1,6 @@
 {
     "board": "arduino:avr:nano",
-    "port": "COM4",
+    "port": "COM3",
     "sketch": "PentaMix-Hauptprogramm.ino",
     "configuration": "cpu=atmega328"
 }
