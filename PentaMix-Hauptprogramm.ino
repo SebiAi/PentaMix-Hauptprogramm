@@ -10,7 +10,6 @@ Changelog:
 */
 
 #include "Arduino.h"
-// #include <U8g2lib.h>
 #include <lcdgfx.h>
 #include <lcdgfx_gui.h>
 #include "Button.h"
@@ -38,10 +37,7 @@ Drink drinks[numPumps];
 int8_t selectedDrinks[NUMPARTS];
 
 // Display
-//U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 DisplaySH1106_128x64_I2C display(-1);
-//const char *text = "AZ-Delivery";
-//u8g2_uint_t width;
 
 #pragma region debug
 void printSelectedDrinks()
@@ -94,10 +90,6 @@ void initPumps()
 
 void initDisplay()
 {
-    // u8g2.begin();
-    // u8g2.setFont(u8g2_font_logisoso32_tf);
-    // width = u8g2.getUTF8Width(text);
-    // u8g2.setFontMode(0);
     display.begin();
     display.setFixedFont(ssd1306xled_font6x8);
     display.fill( 0x00 );
@@ -154,14 +146,6 @@ void updatePumps()
 void updateDisplay()
 {
     // TODO: Test Display & write function
-    // for (int i = 0 ; i < 128 + width*3 ; i++ )
-    // {
-    //     u8g2.firstPage();
-    //     u8g2.setFont(u8g2_font_logisoso32_tf);
-    //     u8g2.drawUTF8(128 - i, 48, text);
-    //     u8g2.nextPage();
-    // }
-    // u8g2.clearBuffer();
 }
 #pragma endregion
 
