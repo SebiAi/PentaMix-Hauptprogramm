@@ -24,6 +24,7 @@ Changelog:
 #define NUMPARTS 10                                         // Anzahl an verschiedenen Anteilen
 const uint8_t buttonPins[] = {2, 3, 4, 5, 6, 7, 8};         // 0 bis 4 - Getränk 1 bis 5, 5 - Undo, 6 Ok
 const uint8_t pumpPins[NUMDRINKS] = {13, 12, 11, 10, 9};    // 0 bis 4 - Getränk 1 bis 5
+const uint8_t partsLinesXLocation[NUMPARTS] = {13, 26, 39, 52, 65, 78, 91, 103, 115, 127};
 // End Config
 
 // Längen holen
@@ -93,10 +94,14 @@ void initDisplay()
     display.begin();
     display.setFixedFont(ssd1306xled_font6x8);
     display.fill( 0x00 );
+    Serial.println((String)"WidthxHeight: " + display.width() + "x" + display.height());
 
-    display.swapDimensions();
-
-    display.write("Hello World!");
+    // Draw parts
+    display.drawRect(0,0,display.width() - 1, display.height() - 1);
+    for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
+    {
+        display.drawVLine(*p, 0, display.height() - 1);
+    }
 }
 
 void initDrinks()
