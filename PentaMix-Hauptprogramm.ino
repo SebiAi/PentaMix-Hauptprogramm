@@ -169,7 +169,7 @@ void addPart(uint8_t i)
             Serial.println((String)"Set part " + partnr + " to " + i);
 
             // draw part
-            display.fillRect(partnr ? partsLinesXLocation[partnr - 1] + 2 : 2, 2, partsLinesXLocation[partnr] - 2,display.heigth() - 3);
+            //display.fillRect(partnr ? partsLinesXLocation[partnr - 1] + 2 : 2, 2, partsLinesXLocation[partnr] - 2,display.heigth() - 3);
             break;
         }
     }
