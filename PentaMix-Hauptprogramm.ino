@@ -90,18 +90,6 @@ void initPumps()
     }
 }
 
-const PROGMEM uint8_t bip[8] =
-{
-    0b00000100,
-    0b00001111,
-    0b00010100,
-    0b00001110,
-    0b00000101,
-    0b00011110,
-    0b00000100,
-    0b00000000
-};
-
 void initDisplay()
 {
     display.begin();
