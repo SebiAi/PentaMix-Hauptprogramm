@@ -17,6 +17,7 @@ Changelog:
 #include "Pump.h"
 #include "Drink.h"
 #include "defines.h"
+#include "customFont.h"
 
 // Config
 #define NUMDRINKS 5                                                                         // Anzahl an Drinks
@@ -89,19 +90,34 @@ void initPumps()
     }
 }
 
+const PROGMEM uint8_t bip[8] =
+{
+    0b00000100,
+    0b00001111,
+    0b00010100,
+    0b00001110,
+    0b00000101,
+    0b00011110,
+    0b00000100,
+    0b00000000
+};
+
 void initDisplay()
 {
     display.begin();
-    display.setFixedFont(ssd1306xled_font6x8);
+    display.setFixedFont(ssd1306xled_font8x6);
     display.fill( 0x00 );
     Serial.println((String)"WidthxHeight: " + display.width() + "x" + display.height());
+    display.setTextCursor(50, 25);    
+    display.write("Test\n");
+    //display.drawBitmap1(50, 25+9, sizeof(bip), 6, bip);
 
     // Draw parts
-    display.drawRect(0,0,display.width() - 1, display.height() - 1);
-    for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
-    {
-        display.drawVLine(*p, 0, display.height() - 1);
-    }
+    // display.drawRect(0,0,display.width() - 1, display.height() - 1);
+    // for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
+    // {
+    //     display.drawVLine(*p, 0, display.height() - 1);
+    // }
 }
 
 void initDrinks()
