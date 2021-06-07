@@ -122,7 +122,6 @@ void updateAll()
 {
     updateButtons();
     updatePumps();
-    updateDisplay();
 }
 
 void updateButtons()
@@ -139,11 +138,6 @@ void updatePumps()
     {
         pumps[i].update();
     }
-}
-
-void updateDisplay()
-{
-    
 }
 #pragma endregion
 
