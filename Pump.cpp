@@ -9,7 +9,7 @@ Pump :: Pump(byte pin)
 void Pump :: dispense_ml(uint16_t milliliters)
 {
     if (milliliters < 10) return;
-    timer.set((double)milliliters/this->mlPerSecond*1000);
+    timer.set((double)milliliters/this->mlPerSecond*1000 + LEAD_TIME_MS);
     digitalWrite(pin, HIGH);
     isWorking = true;
 }

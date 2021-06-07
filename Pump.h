@@ -18,7 +18,8 @@ Changelog:
 #include "SimpleTimer.h"
 
 // Config
-#define ML_PER_SECOND_DEFAULT 20
+#define ML_PER_SECOND_DEFAULT 40
+#define LEAD_TIME_MS 500
 // End Config
 
 
