@@ -2,7 +2,7 @@
 Name: Sebastian Aigner
 Datum: 2021-04-10 (yyyy-mm-dd)
 Version: 1.0
-Beschreibung: Hauptprogramm des PentaMix Projekts. Liest Knöpfe ein und steuert die Pumpen
+Beschreibung: Hauptprogramm des PentaMix Projekts. Liest Knöpfe ein und steuert die Pumpen und Display.
 
 Changelog:
 1.0:
