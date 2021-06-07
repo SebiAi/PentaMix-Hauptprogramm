@@ -41,27 +41,9 @@ int8_t selectedDrinks[NUMPARTS];
 // Display
 DisplaySH1106_128x64_I2C display(-1);
 
-#pragma region debug
-void printSelectedDrinks()
-{
-    for (uint8_t i = 0; i < NUMPARTS; i++) {
-        (selectedDrinks[i] == -1) ? Serial.println((String)i + ": NOT SET") : Serial.println((String)i + ": " + drinks[selectedDrinks[i]].name);
-    }
-}
-
-void printArray(uint16_t *array, uint8_t size)
-{
-    for (uint8_t i = 0; i < size; i++, array++) {
-        Serial.println((String)i + ": " + *array);
-    }
-}
-#pragma endregion
-
 void setup()
 {
-    Serial.begin(9600);
     initAll();
-    printSelectedDrinks();
 }
 
 #pragma region inits
@@ -95,7 +77,6 @@ void initDisplay()
     display.begin();
     display.setFixedFont(ssd1306xled_font8x6);
     display.fill( 0x00 );
-    Serial.println((String)"WidthxHeight: " + display.width() + "x" + display.height());
 
     //Draw parts
     display.drawRect(0,0,display.width() - 1, display.height() - 1);
@@ -115,12 +96,6 @@ void initDrinks()
 
 void initSelectedDrinks()
 {
-    // uint8_t u = 0;
-    // for (uint8_t i = 0; i < NUMPARTS * 2; i++)
-    // {
-    //     selectedDrinks[i - i % 2 - u][i % 2] = -1 + i % 2;
-    //     u += i % 2;
-    // }
     memset(selectedDrinks, -1, sizeof(selectedDrinks));
 }
 #pragma endregion
@@ -167,7 +142,6 @@ void addPart(uint8_t i)
         {
             // add part
             selectedDrinks[partnr] = i;
-            Serial.println((String)"Set part " + partnr + " to " + i);
 
             // draw part
             display.fillRect(partnr ? pgm_read_byte_near(partsLinesXLocation + partnr - 1) + 2 : 2, 2, pgm_read_byte_near(partsLinesXLocation + partnr) - 2,display.height() - 3);
@@ -180,7 +154,6 @@ void addPart(uint8_t i)
             break;
         }
     }
-    printSelectedDrinks();
 }
 
 void undoPart(uint8_t i)
@@ -194,7 +167,6 @@ void undoPart(uint8_t i)
         {
             // Remove part
             selectedDrinks[partnr] = -1;
-            Serial.println((String)"Set part " + partnr + " to NOT SET");
 
             // draw empty part
             display.setColor(BLACK);
@@ -209,7 +181,6 @@ void undoPart(uint8_t i)
             break;
         }
     }
-    printSelectedDrinks();
 }
 #pragma endregion
 
@@ -232,7 +203,6 @@ void loop()
     {
         if (buttons[i].hasBtnClicked())
         {
-            Serial.println((String)"Button " + i);
             if (i < 4) // Getränk Button
             {
                 addPart(i);
@@ -265,18 +235,11 @@ void loop()
                             sumParts++;
                         }
                     }
-                    Serial.println("<Counted Parts>");
-                    printArray(partsSum, GETARRAYLENGTH(partsSum));
-                    Serial.println("</Counted Parts>");
 
                     // calulate ml
-                    Serial.println("<calulate ml>");
                     calculateMls(partsSum, GETARRAYLENGTH(partsSum), sumParts, CUPSIZEML);
-                    printArray(partsSum, GETARRAYLENGTH(partsSum));
-                    Serial.println("</calulate ml>");
 
                     // operate Pumps
-                    Serial.println("<operate Pumps>");
                     partnr = 0;
                     for (; partnr < GETARRAYLENGTH(partsSum); partnr++)
                     {
@@ -293,12 +256,6 @@ void loop()
                             pumps[partnr].update();
                             if (pumps[partnr].isWorking) numPumpsWorking++;                            
                         }
-                    }
-                    Serial.println("</operate Pumps>");
-                    for (uint8_t debug = 0; debug < GETARRAYLENGTH(partsSum); debug++)
-                    {
-                        // TODO: Some bug where pump0 time = pump1 time if one of them is 0 (RAM)
-                        Serial.println((unsigned long)pumps[debug].getElapsedTime());
                     }
 
                     // clear selectedDrinks
