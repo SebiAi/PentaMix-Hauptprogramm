@@ -17,7 +17,6 @@ Changelog:
 #include "Pump.h"
 #include "Drink.h"
 #include "defines.h"
-#include "customFont.h"
 
 // Config
 #define NUMDRINKS 5                                                                                 // Anzahl an Drinks
@@ -93,7 +92,6 @@ void initPumps()
 void initDisplay()
 {
     display.begin();
-    display.setFixedFont(ssd1306xled_font8x6);
     display.fill( 0x00 );
     Serial.println((String)"WidthxHeight: " + display.width() + "x" + display.height());
 
@@ -115,12 +113,6 @@ void initDrinks()
 
 void initSelectedDrinks()
 {
-    // uint8_t u = 0;
-    // for (uint8_t i = 0; i < NUMPARTS * 2; i++)
-    // {
-    //     selectedDrinks[i - i % 2 - u][i % 2] = -1 + i % 2;
-    //     u += i % 2;
-    // }
     memset(selectedDrinks, -1, sizeof(selectedDrinks));
 }
 #pragma endregion
