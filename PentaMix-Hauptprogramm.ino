@@ -10,8 +10,8 @@ Changelog:
 */
 
 #include "Arduino.h"
-#include <lcdgfx.h>
-#include <lcdgfx_gui.h>
+#include <Adafruit_GFX.h>
+#include "Adafruit_SH1106.h"
 #include "Button.h"
 #include "SimpleTimer.h"
 #include "Pump.h"
@@ -39,7 +39,7 @@ Drink drinks[numPumps];
 int8_t selectedDrinks[NUMPARTS];
 
 // Display
-DisplaySH1106_128x64_I2C display(-1);
+Adafruit_SH1106 display(-1);
 
 #pragma region debug
 void printSelectedDrinks()
@@ -92,20 +92,18 @@ void initPumps()
 
 void initDisplay()
 {
-    display.begin();
-    display.setFixedFont(ssd1306xled_font8x6);
-    display.fill( 0x00 );
+    display.begin(SH1106_SWITCHCAPVCC, 0x3C);
+    display.clearDisplay();
+    display.setTextColor(BLACK);
     Serial.println((String)"WidthxHeight: " + display.width() + "x" + display.height());
-    display.setTextCursor(50, 25);    
-    display.write("Test\n");
-    //display.drawBitmap1(50, 25+9, sizeof(bip), 6, bip);
 
-    // Draw parts
-    // display.drawRect(0,0,display.width() - 1, display.height() - 1);
-    // for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
-    // {
-    //     display.drawVLine(*p, 0, display.height() - 1);
-    // }
+    // Draw Parts segmentation
+    display.drawRect(0, 0, display.width(), display.height(), WHITE);    
+    for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < GETARRAYLENGTH(partsLinesXLocation); p++)
+    {
+        display.drawFastVLine(pgm_read_byte_near(p), 0, display.height(), WHITE);
+    }
+    display.display();
 }
 
 void initDrinks()
