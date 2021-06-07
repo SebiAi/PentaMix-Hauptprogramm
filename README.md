@@ -1,2 +1,2 @@
-# PentaMix-Hauptprogramm - development
-Wie das Hauptprogram, nur fürs weiterentwickeln und testen.
+# PentaMix-Hauptprogramm
+Hauptprogramm des PentaMix Projekts. Liest Knöpfe ein und steuert die Pumpen
