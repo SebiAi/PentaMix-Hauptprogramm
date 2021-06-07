@@ -175,7 +175,7 @@ void addPart(uint8_t i)
     printSelectedDrinks();
 }
 
-void undoPart(uint8_t i)
+void undoPart()
 {
     int8_t partnr = NUMPARTS - 1;
     
@@ -232,7 +232,7 @@ void loop()
 
             if (i == 5) // Undo Button
             {
-                undoPart(i);
+                undoPart();
             }
 
             if (i == 6) // Ok Button
