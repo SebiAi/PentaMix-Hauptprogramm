@@ -306,6 +306,7 @@ void loop()
                     Serial.println("</operate Pumps>");
                     for (uint8_t debug = 0; debug < GETARRAYLENGTH(partsSum); debug++)
                     {
+                        // TODO: Some bug where pump0 time = pump1 time if one of them is 0 (RAM)
                         Serial.println((unsigned long)pumps[debug].getElapsedTime());
                     }
 
