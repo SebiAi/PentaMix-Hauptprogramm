@@ -96,16 +96,13 @@ void initDisplay()
     display.setFixedFont(ssd1306xled_font8x6);
     display.fill( 0x00 );
     Serial.println((String)"WidthxHeight: " + display.width() + "x" + display.height());
-    display.setTextCursor(50, 25);    
-    display.write("Test\n");
-    //display.drawBitmap1(50, 25+9, sizeof(bip), 6, bip);
 
-    // Draw parts
-    // display.drawRect(0,0,display.width() - 1, display.height() - 1);
-    // for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
-    // {
-    //     display.drawVLine(*p, 0, display.height() - 1);
-    // }
+    //Draw parts
+    display.drawRect(0,0,display.width() - 1, display.height() - 1);
+    for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
+    {
+        display.drawVLine(pgm_read_byte_near(p), 0, display.height() - 1);
+    }
 }
 
 void initDrinks()
@@ -173,7 +170,13 @@ void addPart(uint8_t i)
             Serial.println((String)"Set part " + partnr + " to " + i);
 
             // draw part
-            //display.fillRect(partnr ? partsLinesXLocation[partnr - 1] + 2 : 2, 2, partsLinesXLocation[partnr] - 2,display.heigth() - 3);
+            display.fillRect(partnr ? pgm_read_byte_near(partsLinesXLocation + partnr - 1) + 2 : 2, 2, pgm_read_byte_near(partsLinesXLocation + partnr) - 2,display.height() - 3);
+            
+            display.drawRect(0,0,display.width() - 1, display.height() - 1);
+            for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
+            {
+                display.drawVLine(pgm_read_byte_near(p), 0, display.height() - 1);
+            }
             break;
         }
     }
@@ -198,6 +201,17 @@ void undoPart(uint8_t i)
             // Remove part
             selectedDrinks[partnr] = -1;
             Serial.println((String)"Set part " + partnr + " to NOT SET");
+
+            // draw empty part
+            display.setColor(BLACK);
+            display.fillRect(partnr ? pgm_read_byte_near(partsLinesXLocation + partnr - 1) + 2 : 2, 2, pgm_read_byte_near(partsLinesXLocation + partnr) - 2,display.height() - 3);
+            display.setColor(WHITE);
+
+            display.drawRect(0,0,display.width() - 1, display.height() - 1);
+            for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
+            {
+                display.drawVLine(pgm_read_byte_near(p), 0, display.height() - 1);
+            }
             break;
         }
     }
@@ -295,7 +309,16 @@ void loop()
                         Serial.println((unsigned long)pumps[debug].getElapsedTime());
                     }
 
-                    // TODO: clear selectedDrinks and refresh display
+                    // clear selectedDrinks
+                    initSelectedDrinks();
+
+                    // clear Display
+                    display.fill( 0x00 );
+                    display.drawRect(0,0,display.width() - 1, display.height() - 1);
+                    for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
+                    {
+                        display.drawVLine(pgm_read_byte_near(p), 0, display.height() - 1);
+                    }
                 }
             }
         }
