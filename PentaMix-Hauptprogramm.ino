@@ -86,7 +86,7 @@ void initPumps()
 {
     for (int8_t i = 0; i < numPumps; i++)
     {
-        pumps[i] = Pump(pgm_read_byte_near(pumpPins + i);
+        pumps[i] = Pump(pgm_read_byte_near(pumpPins + i));
     }
 }
 
