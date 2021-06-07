@@ -17,11 +17,11 @@ Changelog:
 class Drink {  
 public:
     String name;
-    //String acronym;
+    String acronym;
     uint8_t pumpid;
 
     Drink() {};
-    Drink(String name, /*String acronym,*/ uint8_t pumpid);
+    Drink(String name, String acronym, uint8_t pumpid);
 };
 
 #endif
