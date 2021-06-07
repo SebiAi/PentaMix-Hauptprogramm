@@ -225,7 +225,7 @@ void calculateMls(uint16_t *partsSum, uint8_t size, uint8_t sumParts, uint16_t c
     uint8_t partnr = 0;
     for (; partnr < size; partnr++, partsSum++)
     {
-        *partsSum = cupSizeMl / sumParts * (*partsSum);
+        *partsSum = (double)cupSizeMl / sumParts * (*partsSum);
     }    
 }
 #pragma endregion
