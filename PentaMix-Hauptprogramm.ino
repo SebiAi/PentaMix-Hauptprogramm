@@ -151,7 +151,7 @@ void updatePumps()
 
 void updateDisplay()
 {
-    // TODO: Test Display & write function
+    
 }
 #pragma endregion
 
@@ -179,12 +179,6 @@ void addPart(uint8_t i)
             }
             break;
         }
-    }
-    if (partnr == NUMPARTS)
-    {
-        // Display error Message (already 10 parts)
-        Serial.println("[ERROR] ALL PARTS FULL");
-        // TODO: Also on Display
     }
     printSelectedDrinks();
 }
@@ -232,7 +226,7 @@ void calculateMls(uint16_t *partsSum, uint8_t size, uint8_t sumParts, uint16_t c
 
 void loop()
 {
-    updateAll(); // TODO: Mabe optimise => one for loop with all updates
+    updateAll();
 
     for (uint8_t i = 0; i < numButtons; i++)
     {
@@ -253,9 +247,7 @@ void loop()
             {
                 if (selectedDrinks[0] == -1)
                 {
-                    // Display error Message (no parts)
-                    Serial.println("[ERROR] NO PARTS");
-                    // TODO: Also on Display
+                    // Do nothing
                 }
                 else
                 {
@@ -292,7 +284,6 @@ void loop()
                     }
 
                     uint8_t numPumpsWorking = numPumps;
-                    // TODO: Display that pumps are working
                     while (numPumpsWorking > 0)
                     {
                         numPumpsWorking = 0;
