@@ -17,7 +17,6 @@ Changelog:
 #include "Pump.h"
 #include "Drink.h"
 #include "defines.h"
-#include "customFont.h"
 
 // Config
 #define NUMDRINKS 5                                                                                 // Anzahl an Drinks
@@ -75,7 +74,6 @@ void initPumps()
 void initDisplay()
 {
     display.begin();
-    display.setFixedFont(ssd1306xled_font8x6);
     display.fill( 0x00 );
 
     //Draw parts
@@ -156,7 +154,7 @@ void addPart(uint8_t i)
     }
 }
 
-void undoPart(uint8_t i)
+void undoPart()
 {
     int8_t partnr = NUMPARTS - 1;
     
@@ -210,7 +208,7 @@ void loop()
 
             if (i == 5) // Undo Button
             {
-                undoPart(i);
+                undoPart();
             }
 
             if (i == 6) // Ok Button
