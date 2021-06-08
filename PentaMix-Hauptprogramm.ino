@@ -219,7 +219,7 @@ void loop()
         if (buttons[i].hasBtnClicked())
         {
             Serial.println((String)"Button " + i);
-            if (i < 4) // Getränk Button
+            if (i <= 4) // Getränk Button
             {
                 addPart(i);
             }
