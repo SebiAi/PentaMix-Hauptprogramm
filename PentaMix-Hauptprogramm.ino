@@ -40,6 +40,10 @@ int8_t selectedDrinks[NUMPARTS];
 // Display
 DisplaySH1106_128x64_I2C display(-1);
 
+// State machine
+enum MachineStates {RELATIV, ABSOLUTE};
+MachineStates state;
+
 #pragma region debug
 void printSelectedDrinks()
 {
@@ -93,6 +97,7 @@ void initDisplay()
 {
     display.begin();
     display.fill( 0x00 );
+    display.setFixedFont(ssd1306xled_font6x8);
     Serial.println((String)"WidthxHeight: " + display.width() + "x" + display.height());
 
     //Draw parts
@@ -200,13 +205,36 @@ void undoPart()
 #pragma endregion
 
 #pragma region help functions
-void calculateMls(uint16_t *partsSum, uint8_t size, uint8_t sumParts, uint16_t cupSizeMl)
+void calculateRelativMls(uint16_t *partsSum, uint8_t size, uint8_t sumParts, uint16_t cupSizeMl)
 {
     uint8_t partnr = 0;
     for (; partnr < size; partnr++, partsSum++)
     {
         *partsSum = (double)cupSizeMl / sumParts * (*partsSum);
     }    
+}
+
+void calculateAbsolutMls(uint16_t *partsSum, uint8_t size, uint16_t cupSizeMl)
+{
+    uint8_t partnr = 0;
+    for (; partnr < size; partnr++, partsSum++)
+    {
+        *partsSum = (double)cupSizeMl / NUMPARTS * (*partsSum);
+    }    
+}
+
+inline void resetSystem()
+{
+    // clear selectedDrinks
+    initSelectedDrinks();
+
+    // clear Display
+    display.fill( 0x00 );
+    display.drawRect(0,0,display.width() - 1, display.height() - 1);
+    for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
+    {
+        display.drawVLine(pgm_read_byte_near(p), 0, display.height() - 1);
+    }
 }
 #pragma endregion
 
@@ -216,7 +244,34 @@ void loop()
 
     for (uint8_t i = 0; i < numButtons; i++)
     {
-        if (buttons[i].hasBtnClicked())
+        if (buttons[6].hasBtnLongClicked()) // OK button
+        {
+            // Inform user via display
+            display.fill(BLACK);
+            display.setTextCursor(0,0);
+            switch (state)
+            {
+                case ABSOLUTE:
+                    state = RELATIV;
+                    display.write("RELATIV");
+                    break;
+                case RELATIV:
+                    state = ABSOLUTE;
+                    display.write("ABSOLUT");
+                    break;
+            }
+            delay(1000);
+            while (buttons[6].isBtnPressed()) { buttons[6].update(); }
+            display.fill(BLACK);
+
+            // Waste button press
+            buttons[6].hasBtnClickedAndReleased();
+            buttons[6].hasBtnLongClicked();
+
+            resetSystem();
+        }
+
+        if (buttons[i].hasBtnClickedAndReleased())
         {
             Serial.println((String)"Button " + i);
             if (i <= 4) // Getränk Button
@@ -257,7 +312,15 @@ void loop()
 
                     // calulate ml
                     Serial.println("<calulate ml>");
-                    calculateMls(partsSum, GETARRAYLENGTH(partsSum), sumParts, CUPSIZEML);
+                    switch (state)
+                    {
+                        case RELATIV:
+                            calculateRelativMls(partsSum, GETARRAYLENGTH(partsSum), sumParts, CUPSIZEML);
+                            break;
+                        case ABSOLUTE:
+                            calculateAbsolutMls(partsSum, GETARRAYLENGTH(partsSum), CUPSIZEML);
+                            break;
+                    }
                     printArray(partsSum, GETARRAYLENGTH(partsSum));
                     Serial.println("</calulate ml>");
 
@@ -287,16 +350,7 @@ void loop()
                         Serial.println((unsigned long)pumps[debug].getElapsedTime());
                     }
 
-                    // clear selectedDrinks
-                    initSelectedDrinks();
-
-                    // clear Display
-                    display.fill( 0x00 );
-                    display.drawRect(0,0,display.width() - 1, display.height() - 1);
-                    for (uint8_t *p = partsLinesXLocation; p - partsLinesXLocation < NUMPARTS; p++)
-                    {
-                        display.drawVLine(pgm_read_byte_near(p), 0, display.height() - 1);
-                    }
+                    resetSystem();
                 }
             }
         }
